@@ -30,7 +30,7 @@ fi
 echo "Copying contents to git repo"
 mkdir -p $CLONE_DIR/$INPUT_DESTINATION_FOLDER
 
-files=( "$INPUT_SOURCE_FILE" )
+files=$(echo $INPUT_SOURCE_FILE | cut -f1 -d-)
 set -f                 
 for i in "${!files[@]}"
 do
