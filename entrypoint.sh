@@ -22,14 +22,14 @@ git config --global user.email "$INPUT_USER_EMAIL"
 git config --global user.name "$INPUT_USER_NAME"
 git clone --single-branch --branch $INPUT_DESTINATION_BRANCH "https://x-access-token:$API_TOKEN_GITHUB@github.com/$INPUT_DESTINATION_REPO.git" "$CLONE_DIR"
 
-if [ "$DELETE_BEFORE_COPYING" = "true" ]; then
+if [ "$INPUT_DELETE_BEFORE_COPYING" = "true" ]; then
   echo "Cleaning directory before starting"
   rm -rf $CLONE_DIR/$INPUT_DESTINATION_FOLDER
 fi
 
 echo "Copying contents to git repo"
 mkdir -p $CLONE_DIR/$INPUT_DESTINATION_FOLDER
-if [ "$COPY_ONLY_FILES_INSIDE_DIRECTORY" = "true" ]; then
+if [ "$INPUT_COPY_ONLY_FILES_INSIDE_DIRECTORY" = "true" ]; then
   echo "Copying contents only to git repo"
   cp -R "$INPUT_SOURCE_FILE/*" "$CLONE_DIR/$INPUT_DESTINATION_FOLDER"
 else
