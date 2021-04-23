@@ -20,7 +20,9 @@ This GitHub Action copies a file from the current repository to a location in an
           with:
             source_file: 'test2.md'
             destination_repo: 'dmnemec/release-test'
+            delete_before_copying: 'false'
             destination_folder: 'test-dir'
+            copy_only_files_inside_directory: 'false'
             user_email: 'example@email.com'
             user_name: 'dmnemec'
             commit_message: 'A custom message for the commit'
@@ -32,11 +34,9 @@ The `API_TOKEN_GITHUB` needs to be set in the `Secrets` section of your reposito
 * source_file: The file or directory to be moved. Uses the same syntax as the `cp` command. Incude the path for any files not in the repositories root directory.
 * destination_repo: The repository to place the file or directory in.
 * destination_folder: [optional] The folder in the destination repository to place the file in, if not the root directory.
+* delete_before_copying: [optional] Delete the contents of the folder before copying content over.
 * user_email: The GitHub user email associated with the API token secret.
 * user_name: The GitHub username associated with the API token secret.
 * destination_branch: [optional] The branch of the source repo to update, if not master.
 * destination_branch_create: [optional] A branch to be created with this commit, defaults to commiting in `destination_branch`
 * commit_message: [optional] A custom commit message for the commit. Defaults to `Update from https://github.com/${GITHUB_REPOSITORY}/commit/${GITHUB_SHA}`
-
-# Behavior Notes
-The action will create any destination paths if they don't exist. It will also overwrite existing files if they already exist in the locations being copied to. It will not delete the entire destination repository.
