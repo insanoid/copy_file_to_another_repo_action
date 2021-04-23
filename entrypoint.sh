@@ -60,7 +60,7 @@ fi
 
 if [ -z "$INPUT_COMMIT_MESSAGE" ]
 then
-  INPUT_COMMIT_MESSAGE="Update from https://github.com/${GITHUB_REPOSITORY}/commit/${GITHUB_SHA}"
+  INPUT_COMMIT_MESSAGE="docs: update from ${GITHUB_REPOSITORY} - ${GITHUB_SHA}"
 fi
 
 echo "Adding git commit"
