@@ -30,19 +30,25 @@ fi
 echo "Copying contents to git repo"
 mkdir -p $CLONE_DIR/$INPUT_DESTINATION_FOLDER
 
-files=$(echo "$INPUT_SOURCE_FILE" | cut -f1 -d-)
-set -f                 
-for i in "${!files[@]}"
-do
+while [ "$INPUT_SOURCE_FILE" ] ;do
+  # extract the substring from start of string up to delimiter.
+  # this is the first "element" of the string.
+  iter=${INPUT_SOURCE_FILE%%;*}
+  echo "> [$iter]"
   if [ "$INPUT_COPY_ONLY_FILES_INSIDE_DIRECTORY" = "true" ]; then
-  echo "Copying contents only to git repo"
-  cp -a ${files[i]}"/." "$CLONE_DIR/$INPUT_DESTINATION_FOLDER"
-else
-  echo "Copying entire folder/file to git repo"
-  cp -R "${files[i]}" "$CLONE_DIR/$INPUT_DESTINATION_FOLDER"
-fi
-done
-
+    echo "Copying contents only to git repo"
+    cp -a $iter"/." "$CLONE_DIR/$INPUT_DESTINATION_FOLDER"
+  else
+    echo "Copying entire folder/file to git repo"
+    cp -R "$iter" "$CLONE_DIR/$INPUT_DESTINATION_FOLDER"
+  fi
+  # if there's only one element left, set `IN` to an empty string.
+  # this causes us to exit this `while` loop.
+  # else, we delete the first "element" of the string from IN, and move onto the next.
+  [ "$INPUT_SOURCE_FILE" = "$iter" ] && \
+      INPUT_SOURCE_FILE='' || \
+      INPUT_SOURCE_FILE="${INPUT_SOURCE_FILE#*;}"
+  done
 
 cd "$CLONE_DIR"
 
