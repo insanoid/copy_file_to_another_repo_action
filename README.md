@@ -35,6 +35,7 @@ The `API_TOKEN_GITHUB` needs to be set in the `Secrets` section of your reposito
 * destination_repo: The repository to place the file or directory in.
 * destination_folder: [optional] The folder in the destination repository to place the file in, if not the root directory.
 * delete_before_copying: [optional] Delete the contents of the folder before copying content over.
+* copy_only_files_inside_directory: [optional] Copy only the files and not the folder.
 * user_email: The GitHub user email associated with the API token secret.
 * user_name: The GitHub username associated with the API token secret.
 * destination_branch: [optional] The branch of the source repo to update, if not master.
