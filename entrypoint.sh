@@ -15,17 +15,6 @@ then
 fi
 OUTPUT_BRANCH="$INPUT_DESTINATION_BRANCH"
 
-if [ -z "$DELETE_BEFORE_COPYING" ]
-then
-  DELETE_BEFORE_COPYING=false
-fi
-
-if [ -z "$COPY_ONLY_FILES_INSIDE_DIRECTORY" ]
-then
-  COPY_ONLY_FILES_INSIDE_DIRECTORY=false
-fi
-
-
 CLONE_DIR=$(mktemp -d)
 
 echo "Cloning destination git repository"
