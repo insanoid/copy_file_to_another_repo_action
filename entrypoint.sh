@@ -29,13 +29,21 @@ fi
 
 echo "Copying contents to git repo"
 mkdir -p $CLONE_DIR/$INPUT_DESTINATION_FOLDER
-if [ "$INPUT_COPY_ONLY_FILES_INSIDE_DIRECTORY" = "true" ]; then
+
+files=(${INPUT_SOURCE_FILE//:/ })
+set -f                 
+for i in "${!files[@]}"
+do
+  if [ "$INPUT_COPY_ONLY_FILES_INSIDE_DIRECTORY" = "true" ]; then
   echo "Copying contents only to git repo"
-  cp -a $INPUT_SOURCE_FILE"/." "$CLONE_DIR/$INPUT_DESTINATION_FOLDER"
+  cp -a ${files[i]}"/." "$CLONE_DIR/$INPUT_DESTINATION_FOLDER"
 else
   echo "Copying entire folder/file to git repo"
-  cp -R "$INPUT_SOURCE_FILE" "$CLONE_DIR/$INPUT_DESTINATION_FOLDER"
+  cp -R "${files[i]}" "$CLONE_DIR/$INPUT_DESTINATION_FOLDER"
 fi
+done
+
+
 cd "$CLONE_DIR"
 
 if [ ! -z "$INPUT_DESTINATION_BRANCH_CREATE" ]
